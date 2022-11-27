@@ -1,13 +1,14 @@
 using UnityEngine;
 using TMPro;
 
-public class CatsGlobal : MonoBehaviour
+public class CatCookie : MonoBehaviour
 {
-    public float catsCount;
-    public float catsPerSecond;
-    public float catsPerClick;
+    public float catsCount { get; set; }
+    public float catsPerSecond { get; set; }
+    public float catsPerClick { get; set; }
 
-    public TextMeshProUGUI catsText;
+    [SerializeField]
+    private TextMeshProUGUI catsText;
 
     public void Start()
     {

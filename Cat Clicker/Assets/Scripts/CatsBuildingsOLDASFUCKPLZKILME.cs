@@ -3,15 +3,9 @@ using TMPro;
 
 public class CatsBuildings : MonoBehaviour
 {
-    [SerializeField]
-    private string buildingName;
-
-    [SerializeField]
-    private float buildingCost;
-
-    [SerializeField]
-    private int buildingDefaultCPS;
-    public static float buildingCPS;
+    public string buildingName { get; set; }
+    public float buildingCost { get; set; }
+    public float buildingDefaultCPS { get; set; }
 
     [SerializeField]
     private TextMeshProUGUI buildingTextName;
@@ -23,6 +17,7 @@ public class CatsBuildings : MonoBehaviour
     private TextMeshProUGUI buildingTextAmount;
 
     private int buildingAmount;
+    public float buildingCPS { get; set; }
 
     public void Start()
     {
@@ -32,22 +27,32 @@ public class CatsBuildings : MonoBehaviour
 
     public void BuildingBuy()
     {
-        buildingAmount += 1;
-        buildingTextAmount.text = buildingAmount.ToString();
-        UpdateCost();
-        UpdateCPS();
+        //if (CatsGlobal.catsCount >= buildingCost)
+        //{
+        //    CatsGlobal.catsCount -= buildingCost;
+        //    buildingAmount += 1;
+        //    buildingTextAmount.text = buildingAmount.ToString();
+        //
+        //    UpdateCPS();
+        //}
+
+        if (buildingTextAmount.enabled == false)
+        {
+            buildingTextAmount.enabled = true;
+        }
     }
 
     private void UpdateCPS()
     {
         buildingCPS = buildingDefaultCPS * buildingAmount;
+        //Buildings.GetAllBuildingsCPS();
     }
 
     private void UpdateCost()
     {
         if (buildingAmount != 0)
         {
-            buildingCost = buildingCost * Main.buildingCostIncrease;
+            //buildingCost = buildingCost * Main.buildingCostIncrease;
         }
 
         int newBuildingCost = (int)buildingCost;

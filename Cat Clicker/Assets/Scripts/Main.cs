@@ -1,14 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-    public static float buildingCostIncrease = 1.07f;
+    //private float buildingCostIncrease = 1.07f;
+
+
+    private CatsBuildings catBuildings;
 
     // Start is called before the first frame update
-    void Start() { }
+    public void Start()
+    {
+        //gameObject.
+        //catBuildings = new CatsBuildings();
+    }
 
     // Update is called once per frame
-    void Update() { }
+    public void Update() { }
 }
