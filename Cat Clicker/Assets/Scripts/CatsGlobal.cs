@@ -9,8 +9,6 @@ public class CatsGlobal : MonoBehaviour
 
     public TextMeshProUGUI catsText;
 
-    public static float buildingCostIncrease = 1.07f;
-
     public void Start()
     {
         catsCount = 0f;
