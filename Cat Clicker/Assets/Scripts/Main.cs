@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +5,24 @@ public class Main : MonoBehaviour
 {
     public static float buildingCostIncrease = 1.07f;
 
-    // Start is called before the first frame update
-    void Start() { }
+    public static GameObject catCookie;
+    public static List<GameObject> buildingsList;
 
-    // Update is called once per frame
-    void Update() { }
+    public void Awake()
+    {
+        buildingsList = new List<GameObject>();
+    }
+
+    public static void UpdateCPS()
+    {
+        double newCPS = 0;
+        foreach (var building in buildingsList)
+        {
+            var buildingScript = building.gameObject.GetComponent<Building>();
+            newCPS += buildingScript.buildingDefaultCPS * buildingScript.buildingAmount;
+        }
+
+        var catScript = catCookie.GetComponent<CatCookie>();
+        catScript.UpdateCatsPerSecond(newCPS);
+    }
 }
