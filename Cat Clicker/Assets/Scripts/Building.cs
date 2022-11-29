@@ -8,7 +8,7 @@ public class Building : MonoBehaviour
     public double buildingCost;
     public double buildingDefaultCPS;
 
-    private int buildingAmount;
+    public int buildingAmount;
     private double buildingCPS;
 
     [SerializeField]
@@ -22,12 +22,43 @@ public class Building : MonoBehaviour
 
     public void Awake()
     {
+        //ADD TEXT TO GAMEOBJECT
         buildingTextName.text = buildingName;
-        buildingTextCost.text = "" + buildingCost;
+        UpdateText();
+    }
+
+    public void Start()
+    {
+        //ADD GAMEOBJECT TO BUILDINGS LIST
+        Main.buildingsList.Add(this.gameObject);
     }
 
     public void BuildingBuy()
     {
-        print("BUYING " + buildingName);
+        if (CatCookie.catsCount >= buildingCost)
+        {
+            CatCookie.catsCount -= buildingCost;
+            buildingAmount++;
+
+            UpdateCost();
+            UpdateText();
+            Main.UpdateCPS();
+        }
+    }
+
+    private void UpdateText()
+    {
+        if (buildingAmount != 0)
+        {
+            buildingTextAmount.enabled = true;
+        }
+
+        buildingTextCost.text = "" + System.Math.Round(buildingCost, 2);
+        buildingTextAmount.text = "" + buildingAmount;
+    }
+
+    private void UpdateCost()
+    {
+        buildingCost *= Main.buildingCostIncrease;
     }
 }

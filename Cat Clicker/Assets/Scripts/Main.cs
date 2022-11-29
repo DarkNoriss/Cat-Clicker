@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Main : MonoBehaviour
@@ -7,12 +8,23 @@ public class Main : MonoBehaviour
     [SerializeField]
     private GameObject catCookie;
 
-    [SerializeField]
-    private GameObject[] buildings;
+    public static List<GameObject> buildingsList;
 
-    // Start is called before the first frame update
-    public void Start() { }
+    public void Awake()
+    {
+        buildingsList = new List<GameObject>();
+    }
 
-    // Update is called once per frame
-    public void Update() { }
+    public static void UpdateCPS()
+    {
+        double newCPS = 0;
+        foreach (var a in buildingsList)
+        {
+            var b = a.gameObject.GetComponent<Building>();
+            newCPS = b.buildingDefaultCPS * b.buildingAmount;
+        }
+
+        print(newCPS);
+        CatCookie.catsPerSecond = newCPS;
+    }
 }

@@ -3,16 +3,16 @@ using TMPro;
 
 public class CatCookie : MonoBehaviour
 {
-    public static double catsCount { get; set; }
-    public static double catsPerSecond { get; set; }
-    public static double catsPerClick { get; set; }
+    public static double catsCount;
+    public static double catsPerSecond;
+    public static double catsPerClick;
 
     [SerializeField]
     private TextMeshProUGUI catsText;
 
     public void Start()
     {
-        catsCount = 0D;
+        catsCount = 100;
         catsPerSecond = 0D;
         catsPerClick = 1D;
     }
