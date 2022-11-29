@@ -15,7 +15,7 @@ public class CatCookie : MonoBehaviour
 
     public void Awake()
     {
-        catsCount = 200;
+        catsCount = 0;
         catsPerSecond = 0D;
         catsPerClick = 1D;
     }
