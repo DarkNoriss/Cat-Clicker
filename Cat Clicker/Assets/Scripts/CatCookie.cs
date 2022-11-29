@@ -8,24 +8,39 @@ public class CatCookie : MonoBehaviour
     public static double catsPerClick;
 
     [SerializeField]
-    private TextMeshProUGUI catsText;
+    private TextMeshProUGUI catsCountText;
+
+    [SerializeField]
+    private TextMeshProUGUI catsPerSecondText;
+
+    public void Awake()
+    {
+        catsCount = 200;
+        catsPerSecond = 0D;
+        catsPerClick = 1D;
+    }
 
     public void Start()
     {
-        catsCount = 100;
-        catsPerSecond = 0D;
-        catsPerClick = 1D;
+        Main.catCookie = this.gameObject;
+        UpdateCatsPerSecond(catsPerSecond);
     }
 
     public void Update()
     {
         //ADDING CATS PER SECOND TO CAT COUNT
         catsCount += catsPerSecond * Time.deltaTime;
-        catsText.text = "Cats:\n" + (int)catsCount;
+        catsCountText.text = "Cats:\n" + (int)catsCount;
     }
 
     public void CatClick()
     {
         catsCount += catsPerClick;
+    }
+
+    public void UpdateCatsPerSecond(double newCPS)
+    {
+        catsPerSecond = newCPS;
+        catsPerSecondText.text = "per second : " + System.Math.Round(newCPS, 2);
     }
 }
