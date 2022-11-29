@@ -1,13 +1,14 @@
+using System;
+
 public class CatBuilding
 {
     public string buildingName { get; set; }
-    public float buildingCost { get; set; }
-    public float buildingDefaultCPS { get; set; }
-
-    public float buildingCPS;
+    public double buildingCost { get; set; }
+    public double buildingDefaultCPS { get; set; }
     public int buildingAmount;
 
-    public void Start() { }
-
-    public void Update() { }
+    public void Start()
+    {
+        buildingAmount = 0;
+    }
 }

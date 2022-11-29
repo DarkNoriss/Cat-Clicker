@@ -219,9 +219,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4912196924547185753}
         m_TargetAssemblyTypeName: CatsBuildings, Assembly-CSharp
-        m_MethodName: BuildingBuy
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -298,14 +298,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 54691f9ca8b66cd4bba07691b67a7ecf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6dff1079538124478accfff265401f1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -2,17 +2,16 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-    //private float buildingCostIncrease = 1.07f;
+    public static float buildingCostIncrease = 1.07f;
 
+    [SerializeField]
+    private GameObject catCookie;
 
-    private CatsBuildings catBuildings;
+    [SerializeField]
+    private GameObject[] buildings;
 
     // Start is called before the first frame update
-    public void Start()
-    {
-        //gameObject.
-        //catBuildings = new CatsBuildings();
-    }
+    public void Start() { }
 
     // Update is called once per frame
     public void Update() { }
