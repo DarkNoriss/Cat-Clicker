@@ -2744,8 +2744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d075c30f737fc54c931601b19bb56df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modeEnabled: 0
-  catCookie: {fileID: 0}
   textOFF: {fileID: 149334317}
   textON: {fileID: 2126040799}
   timer: 0
@@ -4630,7 +4628,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2126040798
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4658,7 +4656,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2126040797}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
