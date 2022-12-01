@@ -8,6 +8,7 @@ public class Main : MonoBehaviour
     public static GameObject catCookie;
     public static CatCookie catCookieScript;
     public static List<GameObject> buildingsList;
+    public GameObject cheatMode;
 
     public void Awake()
     {
@@ -45,8 +46,6 @@ public class Main : MonoBehaviour
 
         catCookieScript.UpdateCatsPerSecond(newCPS);
     }
-<<<<<<< Updated upstream
-=======
 
     public void CheatModeEnable()
     {
@@ -56,5 +55,4 @@ public class Main : MonoBehaviour
 
         cheatScript.UpdateText();
     }
->>>>>>> Stashed changes
 }

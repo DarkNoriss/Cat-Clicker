@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Building : MonoBehaviour
@@ -31,6 +32,7 @@ public class Building : MonoBehaviour
         //ADD TEXT TO GAMEOBJECT
         buildingTextName.text = buildingName;
         UpdateText();
+        buildingImg.GetComponent<Image>().color = new Color(0, 0, 0);
     }
 
     public void Start()
