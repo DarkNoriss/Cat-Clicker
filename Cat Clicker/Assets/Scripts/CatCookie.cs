@@ -13,20 +13,21 @@ public class CatCookie : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI catsPerSecondText;
 
-    public void Awake()
+    private void Awake()
     {
         catsCount = 0;
         catsPerSecond = 0D;
         catsPerClick = 1D;
     }
 
-    public void Start()
+    private void Start()
     {
+        //ADD CATCOOKIE OBJECT TO VAR IN MAIN
         Main.catCookie = this.gameObject;
         UpdateCatsPerSecond(catsPerSecond);
     }
 
-    public void Update()
+    private void Update()
     {
         //ADDING CATS PER SECOND TO CAT COUNT
         catsCount += catsPerSecond * Time.deltaTime;

@@ -29,7 +29,7 @@ public class Building : MonoBehaviour
 
     public void Start()
     {
-        //ADD GAMEOBJECT TO BUILDINGS LIST
+        //ADD GAMEOBJECT TO BUILDING LIST IN MAIN SCRIPT
         Main.buildingsList.Add(this.gameObject);
     }
 

@@ -7,8 +7,9 @@ public class Main : MonoBehaviour
 
     public static GameObject catCookie;
     public static List<GameObject> buildingsList;
+    public GameObject cheatMode;
 
-    public void Awake()
+    private void Awake()
     {
         buildingsList = new List<GameObject>();
     }
@@ -24,5 +25,21 @@ public class Main : MonoBehaviour
 
         var catScript = catCookie.GetComponent<CatCookie>();
         catScript.UpdateCatsPerSecond(newCPS);
+    }
+
+    public void CheatModeEnable()
+    {
+        var cheatScript = cheatMode.GetComponent<CheatMode>();
+
+        if (cheatScript.enabled)
+        {
+            cheatScript.enabled = !cheatScript.enabled;
+        }
+        else
+        {
+            cheatScript.enabled = true;
+        }
+
+        cheatScript.UpdateText();
     }
 }
