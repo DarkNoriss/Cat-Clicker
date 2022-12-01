@@ -12,6 +12,9 @@ public class Building : MonoBehaviour
     private double buildingCPS;
 
     [SerializeField]
+    private GameObject buildingText;
+
+    [SerializeField]
     private TextMeshProUGUI buildingTextName;
 
     [SerializeField]
@@ -19,6 +22,9 @@ public class Building : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI buildingTextAmount;
+
+    [SerializeField]
+    private GameObject buildingImg;
 
     public void Awake()
     {
@@ -60,5 +66,21 @@ public class Building : MonoBehaviour
     private void UpdateCost()
     {
         buildingCost *= Main.buildingCostIncrease;
+    }
+
+    public void EnableDisplay()
+    {
+        if (!buildingImg.activeSelf)
+        {
+            if (buildingCost <= CatCookie.catsCount)
+            {
+                buildingText.SetActive(true);
+                buildingImg.SetActive(true);
+            }
+        }
+        if (buildingImg.activeSelf)
+        {
+            if (buildingAmount != 0) { }
+        }
     }
 }

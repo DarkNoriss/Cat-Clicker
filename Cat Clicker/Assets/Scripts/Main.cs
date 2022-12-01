@@ -6,11 +6,32 @@ public class Main : MonoBehaviour
     public static float buildingCostIncrease = 1.07f;
 
     public static GameObject catCookie;
+    public static CatCookie catCookieScript;
     public static List<GameObject> buildingsList;
 
     public void Awake()
     {
         buildingsList = new List<GameObject>();
+    }
+
+    private void Update()
+    {
+        if (catCookieScript == null)
+        {
+            catCookieScript = catCookie.GetComponent<CatCookie>();
+        }
+
+        foreach (var building in buildingsList)
+        {
+            // if (building.activeSelf)
+            // {
+            //     var buildingScript = building.gameObject.GetComponent<Building>();
+            //     if (CatCookie.catsCount >= buildingScript.buildingCost)
+            //     {
+            //         building.SetActive(true);
+            //     }
+            // }
+        }
     }
 
     public static void UpdateCPS()
@@ -22,7 +43,18 @@ public class Main : MonoBehaviour
             newCPS += buildingScript.buildingDefaultCPS * buildingScript.buildingAmount;
         }
 
-        var catScript = catCookie.GetComponent<CatCookie>();
-        catScript.UpdateCatsPerSecond(newCPS);
+        catCookieScript.UpdateCatsPerSecond(newCPS);
     }
+<<<<<<< Updated upstream
+=======
+
+    public void CheatModeEnable()
+    {
+        var cheatScript = cheatMode.GetComponent<CheatMode>();
+
+        cheatScript.enabled = !cheatScript.enabled;
+
+        cheatScript.UpdateText();
+    }
+>>>>>>> Stashed changes
 }
