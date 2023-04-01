@@ -1,7 +1,9 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export type Data = {
   cats: number;
 };
 
-type Cats = {
-  cat: number;
+export type Props = Data & {
+  addCats: Dispatch<SetStateAction<number>>;
 };
