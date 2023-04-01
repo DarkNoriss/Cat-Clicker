@@ -9,7 +9,6 @@ export const Header: FC = () => {
         <p>Cat Clicker</p>
       </div>
       <div className="author">
-        {' '}
         <a className="footer-link" href="https://github.com/DarkNoriss" target="__blank">
           <img src={`${PATHICONS}github.svg`}></img>
           <p>DarkNoriss</p>
