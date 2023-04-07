@@ -1,6 +1,5 @@
 import { Props } from '../utils/types';
 import { PATHICONS } from '../constants';
-import '../styles/cat.scss';
 
 export const Cat = ({ cats, addCats }: Props) => {
   const handleClick = () => {
@@ -8,9 +7,9 @@ export const Cat = ({ cats, addCats }: Props) => {
   };
 
   return (
-    <div className="cat">
+    <div>
       <p>{`${cats}`} cats</p>
-      <button onClick={handleClick}>
+      <button className="" onClick={handleClick}>
         <img src={`${PATHICONS}cat.png`} />
       </button>
     </div>

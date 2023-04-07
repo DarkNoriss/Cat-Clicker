@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { loadData, saveData } from '../utils/localData';
-import { Header } from './Header';
-import { Data } from '../utils/types';
-import { Cat } from './Cat';
-import { Display } from './Display';
-import { Store } from './Store';
-import '../styles/app.scss';
-import { useUpdateEffect } from '../utils/useUpdateEffect';
+import { loadData, saveData } from './utils/localData';
+import { Data } from './utils/types';
+import { Cat } from './components/Cat';
+import { Display } from './components/Display';
+import { Store } from './components/Store';
+import { useUpdateEffect } from './utils/useUpdateEffect';
 
 export const App = () => {
   const [data, setData] = useState<Data[]>(loadData());
@@ -24,8 +22,7 @@ export const App = () => {
 
   return (
     <>
-      <Header />
-      <div className="app">
+      <div className="w-screen h-screen bg-red-600">
         <Cat cats={cats} addCats={setCats} />
         <Display />
         <Store />
