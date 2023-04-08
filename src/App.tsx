@@ -1,31 +1,30 @@
 import { useState } from 'react';
 import { loadData, saveData } from './utils/localData';
-import { Data } from './utils/types';
 import { Cat } from './components/Cat';
 import { Display } from './components/Display';
 import { Store } from './components/Store';
 import { useUpdateEffect } from './utils/useUpdateEffect';
+import { BuildingsType } from './Buildings';
+
+export type CatType = {
+  [key: string]: number | string | BuildingsType[];
+  cats: number;
+  cpc: number;
+  cps: number;
+  buildings: BuildingsType[];
+};
 
 export const App = () => {
-  const [data, setData] = useState<Data[]>(loadData());
-  const [cats, setCats] = useState<number>(data[0].cats);
+  const [catData, setCatData] = useState<CatType>(() => loadData());
 
-  useUpdateEffect(() => {
-    saveData(data);
-  }, [data]);
-
-  useUpdateEffect(() => {
-    const updatedData = [...data];
-    updatedData[0].cats = cats;
-    setData(updatedData);
-  }, [cats]);
+  useUpdateEffect(() => saveData(catData), [catData]);
 
   return (
     <>
-      <div className="w-screen h-screen bg-red-600">
-        <Cat cats={cats} addCats={setCats} />
+      <div className="w-screen h-screen flex bg-red-400">
+        <Cat catData={catData} setCatData={setCatData} />
         <Display />
-        <Store />
+        <Store catData={catData} setCatData={setCatData} />
       </div>
     </>
   );
