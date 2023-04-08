@@ -1,3 +1,3 @@
 export const Display = () => {
-  return <div className="display"></div>;
+  return <div className="w-3/5"></div>;
 };
