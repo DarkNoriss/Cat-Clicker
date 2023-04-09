@@ -9,25 +9,39 @@ export type BuildingsType = {
 
 export const catPaw = {
   name: 'Paw',
-  desc: 'meow meowo',
+  desc: 'meow meow',
   priceDef: 15,
   perSecondDef: 0.2,
-  icon: 'dasda',
+  icon: 'catPaw.png',
   amount: 0,
 };
 
 export const catBakery = {
   name: 'Bakery',
-  desc: 'meow meowo',
+  desc: 'meow meow',
   priceDef: 100,
   perSecondDef: 1,
-  icon: 'dasda',
+  icon: 'catBakery.png',
   amount: 0,
 };
 
-// const buildings = {
-//   catFarmer: 0,
-//   catMiner: 0,
+export const catFarmer = {
+  name: 'Farmer',
+  desc: 'meow meow',
+  priceDef: 1100,
+  perSecondDef: 8,
+  icon: 'catFarmer.png',
+  amount: 0,
+};
+
+export const catMiner = {
+  name: 'Miner',
+  desc: 'meow meow',
+  priceDef: 12000,
+  perSecondDef: 47,
+  icon: 'catMiner.png',
+  amount: 0,
+};
 //   catWorket: 0,
 //   catBanker: 0,
 //   catTemple: 0,
@@ -42,4 +56,3 @@ export const catBakery = {
 //   catJavascriptConsole: 0,
 //   catIdleverse: 0,
 //   catCortexBaker: 0,
-// };
