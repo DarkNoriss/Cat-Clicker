@@ -6,7 +6,7 @@ type StoreProps = { catData: CatType; setCatData: React.Dispatch<React.SetStateA
 
 export const Store: React.FC<StoreProps> = ({ catData, setCatData }) => {
   return (
-    <div className="w-1/5  text-center">
+    <div className="w-64 text-center">
       <p className="m-3">Store</p>
       <UpgradeList />
       <BuildingsList catData={catData} setCatData={setCatData} />

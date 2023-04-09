@@ -1,7 +1,7 @@
 export const UpgradeList = () => {
   return (
-    <div className="m-3">
-      <p>Upgrades</p>
+    <div>
+      <p className="m-3">Upgrades</p>
     </div>
   );
 };

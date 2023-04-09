@@ -22,7 +22,7 @@ export const Cat: React.FC<CatProps> = ({ catData, setCatData }) => {
   };
 
   return (
-    <div className="w-1/5 flex flex-col justify-center items-center">
+    <div className="w-96 flex flex-col justify-center items-center">
       <p className="mb-80 text-5xl ">{`${cats}`} cats</p>
       <button className="mb-80 cursor-pointer" onClick={handleClick}>
         <img src={`${PATHICONS}cat.png`} />
