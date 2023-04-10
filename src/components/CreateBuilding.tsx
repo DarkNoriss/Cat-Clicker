@@ -11,12 +11,12 @@ type BuildingProps = {
 
 export const CreateBuilding: React.FC<BuildingProps> = ({ building, index, setBuildings }) => {
   const [price, setPrice] = useState<number>(building.priceDef);
-  const [amount, setAmount] = useState<number>(building.amount);
   const [perSecond, setPerSecond] = useState<number>(0);
+  const [amount, setAmount] = useState<number>(building.amount);
 
   useUpdateEffect(() => {
-    calcPerSecond();
     calcPrice();
+    calcPerSecond();
   }, [amount]);
 
   useUpdateEffect(() => {
@@ -26,7 +26,7 @@ export const CreateBuilding: React.FC<BuildingProps> = ({ building, index, setBu
   const updateBuildings = () => {
     setBuildings((prevBuildings) => {
       const newBuildings = [...prevBuildings];
-      newBuildings[index] = { ...newBuildings[index], amount, perSecond };
+      newBuildings[index] = { ...newBuildings[index], perSecond, amount };
       return newBuildings;
     });
   };
@@ -36,6 +36,7 @@ export const CreateBuilding: React.FC<BuildingProps> = ({ building, index, setBu
     const newPrice = building.priceDef * Math.pow(PRICE_MULTIPLIER, amount);
     setPrice(newPrice);
   };
+
   const calcPerSecond = () => {
     if (amount === 0) return;
     const newPerSecond = building.perSecondDef * amount;
