@@ -27,24 +27,11 @@ export const BuildingsList: React.FC<BuildingListProps> = ({ catData, setCatData
     setCatData(updatedData);
   }, [buildings]);
 
-  const updateBuildings = (amount: number, index: number) => {
-    setBuildings((prevBuildings) => {
-      const newBuildings = [...prevBuildings];
-      newBuildings[index] = { ...newBuildings[index], amount };
-      return newBuildings;
-    });
-  };
-
   return (
     <div>
       <p className="m-3">Buildings</p>
       {buildings.map((value, index) => (
-        <CreateBuilding
-          key={index}
-          building={value}
-          index={index}
-          updateBuildings={updateBuildings}
-        />
+        <CreateBuilding key={index} building={value} index={index} setBuildings={setBuildings} />
       ))}
     </div>
   );

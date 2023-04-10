@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { PRICE_MULTIPLIER, PATHBUILDINGS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { BuildingsType } from '../Buildings';
@@ -6,21 +6,30 @@ import { BuildingsType } from '../Buildings';
 type BuildingProps = {
   building: BuildingsType;
   index: number;
-  updateBuildings: (amount: number, index: number) => void;
+  setBuildings: React.Dispatch<React.SetStateAction<BuildingsType[]>>;
 };
 
-export const CreateBuilding: React.FC<BuildingProps> = ({ building, index, updateBuildings }) => {
+export const CreateBuilding: React.FC<BuildingProps> = ({ building, index, setBuildings }) => {
   const [price, setPrice] = useState<number>(building.priceDef);
-  const [perSecond, setPerSecond] = useState<number>(building.perSecondDef);
   const [amount, setAmount] = useState<number>(building.amount);
-
-  const imgsrc = `${PATHBUILDINGS}`;
+  const [perSecond, setPerSecond] = useState<number>(0);
 
   useUpdateEffect(() => {
-    updateBuildings(amount, index);
-    calcPrice();
     calcPerSecond();
+    calcPrice();
   }, [amount]);
+
+  useUpdateEffect(() => {
+    updateBuildings();
+  }, [perSecond]);
+
+  const updateBuildings = () => {
+    setBuildings((prevBuildings) => {
+      const newBuildings = [...prevBuildings];
+      newBuildings[index] = { ...newBuildings[index], amount, perSecond };
+      return newBuildings;
+    });
+  };
 
   const calcPrice = () => {
     if (amount === 0) return;
@@ -39,7 +48,7 @@ export const CreateBuilding: React.FC<BuildingProps> = ({ building, index, updat
 
   return (
     <div className="h-16 flex cursor-pointer " onClick={handleBuy}>
-      <img src={`${imgsrc}${building.icon}`} className="w-16 aspect-square"></img>
+      <img src={`${PATHBUILDINGS}${building.icon}`} className="w-16 aspect-square"></img>
 
       <div className="flex-1 flex flex-col m-2 items-start">
         <p>{building.name}</p>

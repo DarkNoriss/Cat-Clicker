@@ -5,6 +5,7 @@ export type BuildingsType = {
   perSecondDef: number;
   icon: string;
   amount: number;
+  perSecond: number;
 };
 
 export const catPaw = {
@@ -14,6 +15,7 @@ export const catPaw = {
   perSecondDef: 0.2,
   icon: 'catPaw.png',
   amount: 0,
+  perSecond: 0,
 };
 
 export const catBakery = {
@@ -23,6 +25,7 @@ export const catBakery = {
   perSecondDef: 1,
   icon: 'catBakery.png',
   amount: 0,
+  perSecond: 0,
 };
 
 export const catFarmer = {
@@ -32,6 +35,7 @@ export const catFarmer = {
   perSecondDef: 8,
   icon: 'catFarmer.png',
   amount: 0,
+  perSecond: 0,
 };
 
 export const catMiner = {
@@ -41,6 +45,7 @@ export const catMiner = {
   perSecondDef: 47,
   icon: 'catMiner.png',
   amount: 0,
+  perSecond: 0,
 };
 //   catWorket: 0,
 //   catBanker: 0,
