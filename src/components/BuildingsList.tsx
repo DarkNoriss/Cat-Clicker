@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CatType } from '../App';
 import { CreateBuilding } from './CreateBuilding';
 import { BuildingsType, catBakery, catFarmer, catMiner, catPaw } from '../Buildings';
@@ -12,8 +12,12 @@ type BuildingListProps = {
 export const BuildingsList: React.FC<BuildingListProps> = ({ catData, setCatData }) => {
   const buildingsArray = [catPaw, catBakery, catFarmer, catMiner];
   const [buildings, setBuildings] = useState<BuildingsType[]>(catData.buildings);
+  const isMounted = useRef(false);
 
   useEffect(() => {
+    if (isMounted.current) return;
+    isMounted.current = true;
+
     const missingBuilds = buildingsArray.filter(
       (newBuilds) => !buildings.some((oldBuilds) => newBuilds.name === oldBuilds.name)
     );
@@ -31,7 +35,13 @@ export const BuildingsList: React.FC<BuildingListProps> = ({ catData, setCatData
     <div>
       <p className="m-3">Buildings</p>
       {buildings.map((value, index) => (
-        <CreateBuilding key={index} building={value} index={index} setBuildings={setBuildings} />
+        <CreateBuilding
+          key={index}
+          building={value}
+          index={index}
+          buildingList={buildings}
+          setBuildings={setBuildings}
+        />
       ))}
     </div>
   );
