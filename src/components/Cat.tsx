@@ -10,7 +10,7 @@ type CatProps = {
 
 export const Cat: React.FC<CatProps> = ({ catData, setCatData }) => {
   const [cats, setCats] = useState<number>(catData.cats);
-  const catPerClick = catData.cpc;
+  const [catPerClick, setCatPerClick] = useState<number>(catData.cpc);
 
   useUpdateEffect(() => {
     const updatedData = { ...catData, cats };
