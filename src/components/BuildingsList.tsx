@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CatType } from '../App';
 import { CreateBuilding } from './CreateBuilding';
 import { BuildingsType, catBakery, catFarmer, catMiner, catPaw } from '../Buildings';
@@ -10,10 +10,10 @@ type BuildingListProps = {
 };
 
 export const BuildingsList: React.FC<BuildingListProps> = ({ catData, setCatData }) => {
-  const buildingsArray = [catPaw, catBakery, catFarmer, catMiner]; //
+  const buildingsArray = [catPaw, catBakery, catFarmer, catMiner];
   const [buildings, setBuildings] = useState<BuildingsType[]>(catData.buildings);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     const missingBuilds = buildingsArray.filter(
       (newBuilds) => !buildings.some((oldBuilds) => newBuilds.name === oldBuilds.name)
     );
