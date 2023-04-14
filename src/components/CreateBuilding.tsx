@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PRICE_MULTIPLIER, PATHBUILDINGS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { BuildingsType } from '../Buildings';
@@ -32,7 +32,7 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
     updateBuildings();
   }, [perSecond]);
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (!unlocked) shouldUnlock();
     if (!discovered) shouldDiscover();
   }, [buildingList]);
