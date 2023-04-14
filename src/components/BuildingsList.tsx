@@ -27,9 +27,22 @@ export const BuildingsList: React.FC<BuildingListProps> = ({ catData, setCatData
 
   useUpdateEffect(() => {
     const updatedData = { ...catData };
+    const updatedCPS = calcPerSeconds(buildings);
+
     updatedData.buildings = buildings;
+    updatedData.cpc = updatedCPS;
+
     setCatData(updatedData);
   }, [buildings]);
+
+  const calcPerSeconds = (buildings: BuildingsType[]) => {
+    if (buildings.length === 0) return 0;
+
+    const newCPS = buildings.map((build) => build.perSecond ?? 0);
+    const sumCPS = newCPS.reduce((sum, acc) => sum + acc);
+
+    return sumCPS;
+  };
 
   return (
     <div>

@@ -11,6 +11,7 @@ type CatProps = {
 export const Cat: React.FC<CatProps> = ({ catData, setCatData }) => {
   const [cats, setCats] = useState<number>(catData.cats);
   const [catPerClick, setCatPerClick] = useState<number>(catData.cpc);
+  const [catPerSecond, setCatPerSecond] = useState<number>(catData.cps);
 
   useUpdateEffect(() => {
     const updatedData = { ...catData, cats };
@@ -21,6 +22,7 @@ export const Cat: React.FC<CatProps> = ({ catData, setCatData }) => {
     setCats((prevCats) => prevCats + catPerClick);
   };
 
+  // console.log(catPerSecond);
   return (
     <div className="w-96 flex flex-col justify-center items-center">
       <p className="mb-80 text-5xl ">{`${cats}`} cats</p>
