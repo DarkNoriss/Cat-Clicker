@@ -1,10 +1,10 @@
-type CatsType = {
+export type CatsType = {
   amount: number;
   perSecond: number;
   perClick: number;
 };
 
-type BuildingsType = {
+export type BuildingsType = {
   name: string;
   desc: string;
   icon: string;
@@ -17,7 +17,7 @@ type BuildingsType = {
   discovered?: boolean;
 };
 
-type CatDataType = {
+export type CatDataType = {
   cats: CatsType[];
   upgrades: string[];
   buildings: string[];
