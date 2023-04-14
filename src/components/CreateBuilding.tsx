@@ -3,6 +3,7 @@ import { PRICE_MULTIPLIER, PATHBUILDINGS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { BuildingsType } from '../Buildings';
 import { CatType } from '../App';
+import { converter } from '../utils/numberConverter';
 
 type BuildingProps = {
   building: BuildingsType;
@@ -60,8 +61,7 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   const calcPrice = () => {
     if (amount === 0) return;
     const newPrice = building.priceDef * Math.pow(PRICE_MULTIPLIER, amount);
-    const newPriceRounded = Math.round(newPrice * 100) / 100;
-    setPrice(newPriceRounded);
+    setPrice(newPrice);
   };
 
   const calcPerSecond = () => {
@@ -81,6 +81,13 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   };
 
   const handleBuy = () => {
+    if (catData.cats <= price) return;
+
+    setCatData((prev) => {
+      const updatedCatData = { ...prev };
+      updatedCatData.cats -= price;
+      return updatedCatData;
+    });
     setAmount((curAmo) => curAmo + 1);
   };
 
@@ -91,19 +98,19 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   return (
     <>
       {unlocked && (
-        <div className="h-16 flex cursor-pointer " onClick={handleBuy}>
+        <div className="h-24 flex cursor-pointer text-2xl" onClick={handleBuy}>
           <img
             src={`${PATHBUILDINGS}${building.icon}`}
-            className="w-16 aspect-square"
+            className="w-24 aspect-square"
             style={discovered ? {} : { filter: 'brightness(0)' }}
           ></img>
 
-          <div className="flex-1 flex flex-col m-2 items-start">
-            <p>{building.name}</p>
-            <p>{price}</p>
+          <div className="flex-1 flex flex-col m-auto ml-4 items-start">
+            <p className="font-bold">{building.name}</p>
+            <p>{converter(price)}</p>
           </div>
-          <div className="flex items-end m-2">
-            <p>{amount}</p>
+          <div className="flex items-end m-4 text-5xl">
+            <p className="font-bold">{amount}</p>
           </div>
         </div>
       )}
