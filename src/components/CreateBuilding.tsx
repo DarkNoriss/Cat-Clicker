@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { PRICE_MULTIPLIER, PATHBUILDINGS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { BuildingsType } from '../Buildings';
@@ -20,12 +20,8 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   const [perSecond, setPerSecond] = useState<number>(building.perSecond ?? 0);
   const [amount, setAmount] = useState<number>(building.amount ?? 0);
   const [bonus, setBonus] = useState<number>(building.bonus ?? 1);
-  const unlockedRef = useRef<boolean>(building.unlocked ?? false);
-  const discoveredRef = useRef<boolean>(building.discovered ?? false);
-
-  const notDiscovered = {
-    filter: 'brightness(0)',
-  };
+  const [unlocked, setUnlocked] = useState<boolean>(building.unlocked ?? false);
+  const [discovered, setDiscovered] = useState<boolean>(building.discovered ?? false);
 
   useUpdateEffect(() => {
     calcPrice();
@@ -37,15 +33,11 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   }, [perSecond]);
 
   useUpdateEffect(() => {
-    if (!unlockedRef.current) shouldUnlock();
-    if (!discoveredRef.current) shouldDiscover();
+    if (!unlocked) shouldUnlock();
+    if (!discovered) shouldDiscover();
   }, [buildingList]);
 
   const updateBuildings = () => {
-    // converting React.MutableRefObject<boolean> to boolean
-    const unlocked = unlockedRef.current;
-    const discovered = discoveredRef.current;
-
     setBuildings((prevBuildings) => {
       const newBuildings = [...prevBuildings];
       newBuildings[index] = {
@@ -74,9 +66,9 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   };
 
   const shouldUnlock = () => {
-    if (index === 0) return (unlockedRef.current = true);
+    if (index === 0) return setUnlocked(true);
     const prevOwned = buildingList[index - 1].amount;
-    if (prevOwned !== undefined && prevOwned > 0) return (unlockedRef.current = true);
+    if (prevOwned !== undefined && prevOwned > 0) return setUnlocked(true);
   };
 
   const shouldDiscover = () => {
@@ -88,14 +80,18 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
     setAmount((curAmo) => curAmo + 1);
   };
 
+  const handleSell = () => {
+    setAmount((curAmo) => curAmo - 1);
+  };
+
   return (
     <>
-      {unlockedRef.current && (
+      {unlocked && (
         <div className="h-16 flex cursor-pointer " onClick={handleBuy}>
           <img
             src={`${PATHBUILDINGS}${building.icon}`}
             className="w-16 aspect-square"
-            style={discoveredRef ? notDiscovered : {}}
+            style={discovered ? {} : { filter: 'brightness(0)' }}
           ></img>
 
           <div className="flex-1 flex flex-col m-2 items-start">
