@@ -30,7 +30,7 @@ export const BuildingsList: React.FC<BuildingListProps> = ({ catData, setCatData
     const updatedCPS = calcPerSeconds(buildings);
 
     updatedData.buildings = buildings;
-    updatedData.cpc = updatedCPS;
+    updatedData.cps = updatedCPS;
 
     setCatData(updatedData);
   }, [buildings]);
@@ -54,6 +54,8 @@ export const BuildingsList: React.FC<BuildingListProps> = ({ catData, setCatData
           index={index}
           buildingList={buildings}
           setBuildings={setBuildings}
+          catData={catData}
+          setCatData={setCatData}
         />
       ))}
     </div>

@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import { PRICE_MULTIPLIER, PATHBUILDINGS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { BuildingsType } from '../Buildings';
+import { CatType } from '../App';
 
 type BuildingProps = {
   building: BuildingsType;
   index: number;
   buildingList: BuildingsType[];
   setBuildings: React.Dispatch<React.SetStateAction<BuildingsType[]>>;
+  catData: CatType;
+  setCatData: React.Dispatch<React.SetStateAction<CatType>>;
 };
 
 export const CreateBuilding: React.FC<BuildingProps> = ({
@@ -15,6 +18,8 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   index,
   buildingList,
   setBuildings,
+  catData,
+  setCatData,
 }) => {
   const [price, setPrice] = useState<number>(building.priceDef);
   const [perSecond, setPerSecond] = useState<number>(building.perSecond ?? 0);
@@ -35,7 +40,7 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   useEffect(() => {
     if (!unlocked) shouldUnlock();
     if (!discovered) shouldDiscover();
-  }, [buildingList]);
+  }, [buildingList, catData]);
 
   const updateBuildings = () => {
     setBuildings((prevBuildings) => {
@@ -72,8 +77,7 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   };
 
   const shouldDiscover = () => {
-    // to do
-    // if price is > cats
+    if (catData.cats >= price) setDiscovered(true);
   };
 
   const handleBuy = () => {
