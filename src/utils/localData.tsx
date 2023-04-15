@@ -1,5 +1,5 @@
-import { CatType } from '../App';
 import { LOCAL_STORAGE_KEY } from '../constants';
+import { CatDataType, emptyData } from './emptyData';
 
 export const loadData = () => {
   // console.log('LOADING DATA');
@@ -7,18 +7,7 @@ export const loadData = () => {
   return storedTasks || emptyData();
 };
 
-export const saveData = (data: CatType) => {
+export const saveData = (data: CatDataType) => {
   // console.log('SAVING DATA');
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
-};
-
-const emptyData = () => {
-  const catDataEmpty = {
-    cats: 0,
-    cpc: 1,
-    cps: 0,
-    upgrades: [],
-    buildings: [],
-  };
-  return catDataEmpty;
 };

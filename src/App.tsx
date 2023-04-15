@@ -1,21 +1,13 @@
 import { useState } from 'react';
 import { loadData, saveData } from './utils/localData';
-import { Cat } from './components/Cat';
+import { Cat } from './components/Cats';
 import { Display } from './components/Display';
 import { Store } from './components/Store';
 import { useUpdateEffect } from './utils/useUpdateEffect';
-import { BuildingsType } from './Buildings';
-
-export type CatType = {
-  [key: string]: number | string | BuildingsType[];
-  cats: number;
-  cpc: number;
-  cps: number;
-  buildings: BuildingsType[];
-};
+import { CatDataType } from './utils/emptyData';
 
 export const App = () => {
-  const [catData, setCatData] = useState<CatType>(() => loadData());
+  const [catData, setCatData] = useState<CatDataType>(() => loadData());
 
   useUpdateEffect(() => saveData(catData), [catData]);
 
