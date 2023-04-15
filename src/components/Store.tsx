@@ -1,8 +1,11 @@
 import { UpgradeList } from './UpgradeList';
 import { BuildingsList } from './BuildingsList';
-import { CatType } from '../App';
+import { CatDataType } from '../utils/emptyData';
 
-type StoreProps = { catData: CatType; setCatData: React.Dispatch<React.SetStateAction<CatType>> };
+type StoreProps = {
+  catData: CatDataType;
+  setCatData: React.Dispatch<React.SetStateAction<CatDataType>>;
+};
 
 export const Store: React.FC<StoreProps> = ({ catData, setCatData }) => {
   return (

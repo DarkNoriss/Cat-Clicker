@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 import { PRICE_MULTIPLIER, PATHBUILDINGS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { BuildingsType } from '../Buildings';
-import { CatType } from '../App';
 import { converter } from '../utils/numberConverter';
+import { CatDataType } from '../utils/emptyData';
 
 type BuildingProps = {
-  building: BuildingsType;
+  building: any;
   index: number;
   buildingList: BuildingsType[];
   setBuildings: React.Dispatch<React.SetStateAction<BuildingsType[]>>;
-  catData: CatType;
-  setCatData: React.Dispatch<React.SetStateAction<CatType>>;
+  catData: CatDataType;
+  setCatData: React.Dispatch<React.SetStateAction<CatDataType>>;
 };
 
 export const CreateBuilding: React.FC<BuildingProps> = ({
@@ -22,7 +22,7 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   catData,
   setCatData,
 }) => {
-  const [price, setPrice] = useState<number>(building.priceDef);
+  const [price, setPrice] = useState<number>(building.price ?? building.priceDef);
   const [perSecond, setPerSecond] = useState<number>(building.perSecond ?? 0);
   const [amount, setAmount] = useState<number>(building.amount ?? 0);
   const [bonus, setBonus] = useState<number>(building.bonus ?? 1);
@@ -35,28 +35,18 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   }, [amount]);
 
   useUpdateEffect(() => {
-    updateBuildings();
+    const updatedBuilding = { ...building, amount, perSecond, unlocked, discovered };
+    setBuildings((prev) => {
+      const updatedList = { ...prev };
+      updatedList[index] = updatedBuilding;
+      return updatedList;
+    });
   }, [perSecond]);
 
   useEffect(() => {
     if (!unlocked) shouldUnlock();
     if (!discovered) shouldDiscover();
-  }, [buildingList, catData]);
-
-  const updateBuildings = () => {
-    setBuildings((prevBuildings) => {
-      const newBuildings = [...prevBuildings];
-      newBuildings[index] = {
-        ...newBuildings[index],
-        perSecond,
-        amount,
-        bonus,
-        unlocked,
-        discovered,
-      };
-      return newBuildings;
-    });
-  };
+  }, [catData]);
 
   const calcPrice = () => {
     if (amount === 0) return;
@@ -77,15 +67,15 @@ export const CreateBuilding: React.FC<BuildingProps> = ({
   };
 
   const shouldDiscover = () => {
-    if (catData.cats >= price) setDiscovered(true);
+    if (catData.cats.amount >= price) setDiscovered(true);
   };
 
   const handleBuy = () => {
-    if (catData.cats <= price) return;
-
+    if (catData.cats.amount <= price) return;
+    const newAmount = catData.cats.amount - price;
     setCatData((prev) => {
       const updatedCatData = { ...prev };
-      updatedCatData.cats -= price;
+      updatedCatData.cats.amount = newAmount;
       return updatedCatData;
     });
     setAmount((curAmo) => curAmo + 1);

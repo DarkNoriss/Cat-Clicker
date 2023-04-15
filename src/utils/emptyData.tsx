@@ -8,9 +8,9 @@ export type BuildingsType = {
   name: string;
   desc: string;
   icon: string;
+  amount?: number;
   priceDef: number;
   perSecondDef: number;
-  amount?: number;
   perSecond?: number;
   bonus?: number;
   unlocked?: boolean;
@@ -18,9 +18,9 @@ export type BuildingsType = {
 };
 
 export type CatDataType = {
-  cats: CatsType[];
-  upgrades: string[];
-  buildings: string[];
+  cats: CatsType;
+  upgrades: string;
+  buildings: BuildingsType[];
 };
 
 export const emptyData = () => {
@@ -31,35 +31,66 @@ export const emptyData = () => {
       perClick: 1,
     },
     upgrades: {},
-    buildings: {
-      catPaw: {
+    buildings: [
+      {
         name: 'Paw',
-        desc: 'meow meow',
+        desc: 'meow meow meow meow',
         icon: 'catPaw.png',
         priceDef: 15,
         perSecondDef: 0.2,
       },
-      catBakery: {
+      {
         name: 'Bakery',
         desc: 'meow meow',
         icon: 'catBakery.png',
         priceDef: 100,
         perSecondDef: 1,
       },
-      catFarmer: {
+      {
         name: 'Farmer',
         desc: 'meow meow',
         icon: 'catFarmer.png',
         priceDef: 1100,
         perSecondDef: 8,
       },
-      catMiner: {
+      {
         name: 'Miner',
         desc: 'meow meow',
         icon: 'catMiner.png',
         priceDef: 12000,
         perSecondDef: 47,
       },
-    },
+    ],
   };
+};
+
+const catPaw = {
+  name: 'Paw',
+  desc: 'meow meow',
+  icon: 'catPaw.png',
+  priceDef: 15,
+  perSecondDef: 0.2,
+};
+
+const catBakery = {
+  name: 'Bakery',
+  desc: 'meow meow',
+  icon: 'catBakery.png',
+  priceDef: 100,
+  perSecondDef: 1,
+};
+
+const catFarmer = {
+  name: 'Farmer',
+  desc: 'meow meow',
+  icon: 'catFarmer.png',
+  priceDef: 1100,
+  perSecondDef: 8,
+};
+const catMiner = {
+  name: 'Miner',
+  desc: 'meow meow',
+  icon: 'catMiner.png',
+  priceDef: 12000,
+  perSecondDef: 47,
 };
