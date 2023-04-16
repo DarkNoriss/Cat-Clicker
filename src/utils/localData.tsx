@@ -1,10 +1,10 @@
 import { LOCAL_STORAGE_KEY } from '../constants';
-import { CatDataType, emptyData } from './emptyData';
+import { CatDataType, getInitialData } from './emptyData';
 
-export const loadData = () => {
+export const loadData = (): CatDataType => {
   // console.log('LOADING DATA');
   const storedTasks = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ?? 'null');
-  return storedTasks || emptyData();
+  return storedTasks || getInitialData();
 };
 
 export const saveData = (data: CatDataType) => {

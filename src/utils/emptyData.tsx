@@ -19,11 +19,11 @@ export type BuildingsType = {
 
 export type CatDataType = {
   cats: CatsType;
-  upgrades: string;
+  upgrades: any;
   buildings: BuildingsType[];
 };
 
-export const emptyData = () => {
+export const getInitialData = (): CatDataType => {
   return {
     cats: {
       amount: 0,

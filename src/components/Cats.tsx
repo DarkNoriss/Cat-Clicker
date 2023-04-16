@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PATHICONS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { converter } from '../utils/numberConverter';
-import { CatDataType, CatsType } from '../utils/emptyData';
+import { CatDataType } from '../utils/emptyData';
 
 type CatsProps = {
   catData: CatDataType;
@@ -14,22 +14,33 @@ export const Cat: React.FC<CatsProps> = ({ catData, setCatData }) => {
   const [perClick, setPerClick] = useState<number>(catData.cats.perClick);
   const [perSecond, setPerSecond] = useState<number>(catData.cats.perSecond);
 
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setAmount((prevScore) => prevScore + perSecond);
+  //   }, 1000);
+  //   return () => clearInterval(intervalId);
+  // });
+
   useUpdateEffect(() => {
     setCatData((prev) => {
       const updatedData = { ...prev };
       updatedData.cats.amount = amount;
+      updatedData.cats.perClick = perClick;
+      updatedData.cats.perSecond = perSecond;
       return updatedData;
     });
-  }, [amount]);
+  }, [amount, perClick, perSecond]);
 
   useUpdateEffect(() => {
     setAmount(catData.cats.amount);
   }, [catData]);
 
   useUpdateEffect(() => {
-    // calculate perSecond on each building and sum
-    // const buildingList = catData.buildings;
-    // console.log(buildingList);
+    setPerSecond(() => {
+      return Object.values(catData.buildings).reduce((sum, building) => {
+        return sum + (building.perSecond ?? 0);
+      }, 0);
+    });
   }, [catData.buildings]);
 
   const handleClick = () => {
