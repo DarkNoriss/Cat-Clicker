@@ -1,26 +1,26 @@
-import { createContext, useReducer, useState } from 'react';
+import { Dispatch, createContext, useReducer, useState } from 'react';
 import { loadData, saveData } from './utils/localData';
 import { Cat } from './components/Cats';
 import { Display } from './components/Display';
 import { Store } from './components/Store';
 import { useUpdateEffect } from './utils/useUpdateEffect';
-import { CatDataType } from './utils/emptyData';
+import { CatDataType, CatsType } from './utils/emptyData';
 import { catReducer } from './utils/catReducer';
 
-export const App = () => {
-  const [catData, setCatData] = useState<CatDataType>(() => loadData());
-  const [catGame, setCatGame] = useReducer(catReducer, loadData());
-  const CatGameContext = createContext(catGame);
+export const CatGameContext = createContext({});
 
-  useUpdateEffect(() => saveData(catData), [catData]);
+export const App = () => {
+  const [catGame, dispatchCatGame] = useReducer(catReducer, loadData());
+
+  useUpdateEffect(() => saveData(catGame), [catGame]);
 
   return (
     <>
       <div className="w-screen h-screen flex bg-red-400">
-        <CatGameContext.Provider value={{ catGame, setCatGame }}>
-          <Cat catData={catData} setCatData={setCatData} />
+        <CatGameContext.Provider value={{ catGame, dispatchCatGame }}>
+          <Cat />
           <Display />
-          <Store catData={catData} setCatData={setCatData} />
+          <Store />
         </CatGameContext.Provider>
       </div>
     </>
