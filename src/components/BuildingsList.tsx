@@ -1,35 +1,37 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { CreateBuilding } from './CreateBuilding';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { BuildingsType, CatDataType } from '../utils/emptyData';
+import { CatGameContext } from '../App';
 
-type BuildingListProps = {
-  catData: CatDataType;
-  setCatData: React.Dispatch<React.SetStateAction<CatDataType>>;
-};
+export const BuildingsList = () => {
+  const { catGame, dispatchCatGame } = useContext(CatGameContext);
+  // const [buildings, setBuildings] = useState<BuildingsType[]>(catData.buildings);
 
-export const BuildingsList: React.FC<BuildingListProps> = ({ catData, setCatData }) => {
-  const [buildings, setBuildings] = useState<BuildingsType[]>(catData.buildings);
-
-  useUpdateEffect(() => {
-    const updatedData = { ...catData, buildings };
-    setCatData(updatedData);
-  }, [buildings]);
+  // useUpdateEffect(() => {
+  //   const updatedData = { ...catData, buildings };
+  //   setCatData(updatedData);
+  // }, [buildings]);
 
   return (
     <div>
       <p className="m-3">Buildings</p>
-      {Object.values(buildings).map((value, index) => (
-        <CreateBuilding
-          key={index}
-          building={value}
-          index={index}
-          buildingList={buildings}
-          setBuildings={setBuildings}
-          catData={catData}
-          setCatData={setCatData}
-        />
+      <div></div>
+      {Object.values(catGame.buildings).map((value, index) => (
+        <CreateBuilding key={index} building={value} index={index} />
       ))}
     </div>
   );
 };
+
+// Object.values(buildings).map((value, index) => (
+//   <CreateBuilding
+//     key={index}
+//     building={value}
+//     index={index}
+//     buildingList={buildings}
+//     setBuildings={setBuildings}
+//     catData={catData}
+//     setCatData={setCatData}
+//   />
+// ));
