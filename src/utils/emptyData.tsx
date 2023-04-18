@@ -8,9 +8,10 @@ export type BuildingsType = {
   name: string;
   desc: string;
   icon: string;
-  amount?: number;
   priceDef: number;
   perSecondDef: number;
+  amount?: number;
+  price?: number;
   perSecond?: number;
   bonus?: number;
   unlocked?: boolean;
