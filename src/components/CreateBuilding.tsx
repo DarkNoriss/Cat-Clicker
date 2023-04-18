@@ -59,7 +59,7 @@ export const CreateBuilding: React.FC<BuildingProps> = ({ building, index }) => 
       {building.unlocked && (
         <div className="h-24 flex cursor-pointer text-2xl" onClick={handleClick}>
           <img
-            src={`${PATHBUILDINGS}${building.icon}`}
+            src={`${PATHBUILDINGS}${building.icon}.webp`}
             className="w-24 aspect-square"
             style={building.discovered ? {} : { filter: 'brightness(0)' }}
           />
