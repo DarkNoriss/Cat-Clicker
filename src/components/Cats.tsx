@@ -1,16 +1,26 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { PATHICONS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { converter } from '../utils/numberConverter';
-import { CatDataType } from '../utils/emptyData';
 import { CatGameContext } from '../App';
 
 export const Cat = () => {
   const { catGame, dispatchCatGame } = useContext(CatGameContext);
 
+  useUpdateEffect(() => {
+    const calculatedPerSecond = Object.values(catGame.buildings).reduce((sum, building) => {
+      return sum + (building.perSecond ?? 0);
+    }, 0);
+
+    dispatchCatGame({
+      type: 'cat_set_persecond',
+      payload: calculatedPerSecond,
+    });
+  }, [catGame.buildings]);
+
   const handleClick = () => {
     dispatchCatGame({
-      type: 'add_cat',
+      type: 'cat_add',
     });
   };
 
@@ -23,18 +33,3 @@ export const Cat = () => {
     </div>
   );
 };
-
-// useEffect(() => {
-//   const intervalId = setInterval(() => {
-//     setAmount((prevScore) => prevScore + perSecond);
-//   }, 1000);
-//   return () => clearInterval(intervalId);
-// });
-
-// useUpdateEffect(() => {
-//   setPerSecond(() => {
-//     return Object.values(catData.buildings).reduce((sum, building) => {
-//       return sum + (building.perSecond ?? 0);
-//     }, 0);
-//   });
-// }, [catData.buildings]);
