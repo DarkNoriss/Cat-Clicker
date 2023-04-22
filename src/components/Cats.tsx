@@ -1,4 +1,4 @@
-import { PATHICONS } from '../constants';
+import { PATH_ICONS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { numberConverter } from '../utils/numberConverter';
 import { useCatGame } from '../context/catContext';
@@ -29,7 +29,7 @@ export const Cat = () => {
     <div className="w-96 flex flex-col justify-center items-center">
       <p className="text-5xl ">{numberConverter(catGame.cats.amount)} cats</p>
       <button className="w-96 h-96 cursor-pointer" onClick={handleClick}>
-        <img className="m-auto" src={`${PATHICONS}cat.png`} />
+        <img className="m-auto" src={`${PATH_ICONS}cat.png`} />
       </button>
     </div>
   );
