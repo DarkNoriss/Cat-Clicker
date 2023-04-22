@@ -1,6 +1,6 @@
 import { PATHICONS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
-import { converter } from '../utils/numberConverter';
+import { numberConverter } from '../utils/numberConverter';
 import { useCatGame } from '../context/catContext';
 
 export const Cat = () => {
@@ -11,9 +11,11 @@ export const Cat = () => {
       return sum + (building.perSecond ?? 0);
     }, 0);
 
+    const roundedPerSecond = Math.round(calculatedPerSecond * 100) / 100;
+
     dispatchCatGame({
       type: 'cat_set_persecond',
-      payload: calculatedPerSecond,
+      payload: roundedPerSecond,
     });
   }, [catGame.buildings]);
 
@@ -25,7 +27,7 @@ export const Cat = () => {
 
   return (
     <div className="w-96 flex flex-col justify-center items-center">
-      <p className="text-5xl ">{converter(catGame.cats.amount)} cats</p>
+      <p className="text-5xl ">{numberConverter(catGame.cats.amount)} cats</p>
       <button className="w-96 h-96 cursor-pointer" onClick={handleClick}>
         <img className="m-auto" src={`${PATHICONS}cat.png`} />
       </button>

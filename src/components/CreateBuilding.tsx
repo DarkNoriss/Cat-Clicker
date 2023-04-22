@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { PATHBUILDINGS } from '../constants';
+import { PATH_BUILDINGS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
-import { converter } from '../utils/numberConverter';
+import { numberConverter } from '../utils/numberConverter';
 import { useCatGame } from '../context/catContext';
 
 type BuildingProps = {
@@ -57,21 +57,26 @@ export const CreateBuilding: React.FC<BuildingProps> = ({ building, index }) => 
   return (
     <>
       {building.unlocked && (
-        <div className="h-24 flex cursor-pointer text-2xl" onClick={handleClick}>
+        <button className="h-24 w-full flex items-center text-2xl " onClick={handleClick}>
           <img
-            src={`${PATHBUILDINGS}${building.icon}.webp`}
-            className="w-24 aspect-square"
-            style={building.discovered ? {} : { filter: 'brightness(0)' }}
+            src={`${PATH_BUILDINGS}${building.icon}.webp`}
+            className={`w-24 aspect-square ${building.discovered ? '' : 'brightness-0'} `}
           />
 
           <div className="flex-1 flex flex-col m-auto ml-4 items-start">
-            <p className="font-bold">{building.name}</p>
-            <p>{converter(building.price)}</p>
+            <p className="text-4xl text-white">{building.discovered ? building.name : '???'}</p>
+            <p
+              className={`${
+                catGame.cats.amount >= building.price ? 'text-green-600' : 'text-red-600'
+              }`}
+            >
+              {numberConverter(building.price)}
+            </p>
           </div>
-          <div className="flex items-end m-4 text-5xl">
-            <p className="font-bold">{building.amount}</p>
+          <div className="flex items-end mr-2 text-7xl">
+            <p className="">{building.amount}</p>
           </div>
-        </div>
+        </button>
       )}
     </>
   );
