@@ -1,33 +1,20 @@
 export const numberConverter = (rawValue: number) => {
-  let formatedValue;
-  let symbol = '';
+  const conversions = [
+    { limit: 1e12, divisor: 1e14, symbol: 'AA' },
+    { limit: 1e9, divisor: 1e11, symbol: 'T' },
+    { limit: 1e6, divisor: 1e8, symbol: 'M' },
+    { limit: 1e3, divisor: 1e5, symbol: 'K' },
+  ];
 
-  switch (true) {
-    case rawValue >= 1e12:
-      formatedValue = Math.round(rawValue * 100) / 1e14;
-      symbol = 'AA';
-      break;
+  const { divisor, symbol } = conversions.find(({ limit }) => rawValue >= limit) || {
+    divisor: 100,
+    symbol: '',
+  };
+  const formatedValue = Math.round(rawValue * 100) / divisor;
 
-    case rawValue >= 1e9:
-      formatedValue = Math.round(rawValue * 100) / 1e11;
-      symbol = 'T';
-      break;
+  return `${numberRounder(formatedValue)}${symbol}`;
+};
 
-    case rawValue >= 1e6:
-      formatedValue = Math.round(rawValue * 100) / 1e8;
-      symbol = 'M';
-      break;
-
-    case rawValue >= 1e3:
-      formatedValue = Math.round(rawValue * 100) / 1e5;
-      symbol = 'K';
-      break;
-
-    default:
-      formatedValue = Math.round(rawValue * 100) / 100;
-      break;
-  }
-
-  const rounded = Math.round(formatedValue * 1000) / 1000;
-  return `${rounded}${symbol}`;
+export const numberRounder = (rawValue: number) => {
+  return Math.round(rawValue * 1000) / 1000;
 };
