@@ -7,7 +7,8 @@ export const catReducer = (state: CatDataType, action: any) => {
     case 'game_loop':
       return produce(state, (draftState) => {
         const cats = draftState.cats;
-        cats.amount += draftState.cats.perSecond;
+        const calcCats = Math.round((cats.amount + cats.perSecond) * 100) / 100;
+        cats.amount = calcCats;
       });
 
     case 'cat_add':
@@ -27,7 +28,8 @@ export const catReducer = (state: CatDataType, action: any) => {
         const cats = draftState.cats;
         const building = draftState.buildings[action.payload];
         if (cats.amount >= building.price) {
-          cats.amount -= building.price;
+          const calcCats = Math.round((cats.amount - building.price) * 100) / 100;
+          cats.amount = calcCats;
           building.amount += 1;
           building.price = building.priceDef * Math.pow(PRICE_MULTIPLIER, building.amount);
           building.perSecond = building.perSecondDef * building.bonus * building.amount;

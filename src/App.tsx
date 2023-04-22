@@ -32,7 +32,7 @@ export const App = () => {
 
   return (
     <>
-      <div className="w-screen h-screen flex bg-red-400">
+      <div className="w-screen h-screen flex bg-red-400 overflow-hidden">
         <CatGameContext.Provider value={{ catGame, dispatchCatGame }}>
           <Cat />
           <Display />
