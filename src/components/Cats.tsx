@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import { PATHICONS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { converter } from '../utils/numberConverter';
-import { CatGameContext } from '../App';
+import { useCatGame } from '../context/catContext';
 
 export const Cat = () => {
-  const { catGame, dispatchCatGame } = useContext(CatGameContext);
+  const { catGame, dispatchCatGame } = useCatGame();
 
   useUpdateEffect(() => {
     const calculatedPerSecond = Object.values(catGame.buildings).reduce((sum, building) => {

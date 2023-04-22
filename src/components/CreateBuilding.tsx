@@ -1,8 +1,8 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { PATHBUILDINGS } from '../constants';
 import { useUpdateEffect } from '../utils/useUpdateEffect';
 import { converter } from '../utils/numberConverter';
-import { CatGameContext } from '../App';
+import { useCatGame } from '../context/catContext';
 
 type BuildingProps = {
   building: any;
@@ -10,7 +10,7 @@ type BuildingProps = {
 };
 
 export const CreateBuilding: React.FC<BuildingProps> = ({ building, index }) => {
-  const { catGame, dispatchCatGame } = useContext(CatGameContext);
+  const { catGame, dispatchCatGame } = useCatGame();
   const isMissingVariable = useRef(true);
 
   useEffect(() => {
