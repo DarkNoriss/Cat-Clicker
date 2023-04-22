@@ -1,17 +1,8 @@
-import { useContext, useState } from 'react';
 import { CreateBuilding } from './CreateBuilding';
-import { useUpdateEffect } from '../utils/useUpdateEffect';
-import { BuildingsType, CatDataType } from '../utils/emptyData';
-import { CatGameContext } from '../App';
+import { useCatGame } from '../context/catContext';
 
 export const BuildingsList = () => {
-  const { catGame, dispatchCatGame } = useContext(CatGameContext);
-  // const [buildings, setBuildings] = useState<BuildingsType[]>(catData.buildings);
-
-  // useUpdateEffect(() => {
-  //   const updatedData = { ...catData, buildings };
-  //   setCatData(updatedData);
-  // }, [buildings]);
+  const { catGame, dispatchCatGame } = useCatGame();
 
   return (
     <div>
@@ -23,15 +14,3 @@ export const BuildingsList = () => {
     </div>
   );
 };
-
-// Object.values(buildings).map((value, index) => (
-//   <CreateBuilding
-//     key={index}
-//     building={value}
-//     index={index}
-//     buildingList={buildings}
-//     setBuildings={setBuildings}
-//     catData={catData}
-//     setCatData={setCatData}
-//   />
-// ));
