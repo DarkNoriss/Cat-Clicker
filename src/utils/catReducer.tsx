@@ -1,66 +1,67 @@
 import { PRICE_MULTIPLIER } from '../constants';
 import { CatDataType } from './emptyData';
 import { produce } from 'immer';
+import { numberRounder } from './numberConverter';
 
-export const catReducer = (state: CatDataType, action: any) => {
-  switch (action.type) {
-    case 'game_loop':
-      return produce(state, (draftState) => {
-        const cats = draftState.cats;
-        const calcCats = Math.round((cats.amount + cats.perSecond) * 100) / 100;
-        cats.amount = calcCats;
-      });
+type ActionTypes =
+  | { type: 'game_loop' }
+  | { type: 'cat_add' }
+  | { type: 'cat_set_persecond'; payload: number }
+  | { type: 'building_buy'; payload: number }
+  | { type: 'building_unlock'; payload: number }
+  | { type: 'building_discover'; payload: number }
+  | { type: 'building_add_variable'; payload: number };
 
-    case 'cat_add':
-      return produce(state, (draftState) => {
-        const cats = draftState.cats;
-        cats.amount += draftState.cats.perClick;
-      });
+export const catReducer = (state: CatDataType, action: ActionTypes) => {
+  return produce(state, (draftState) => {
+    const { cats, buildings } = draftState;
 
-    case 'cat_set_persecond':
-      return produce(state, (draftState) => {
-        const cats = draftState.cats;
+    switch (action.type) {
+      case 'game_loop':
+        cats.amount = numberRounder(cats.amount + cats.perSecond);
+        break;
+
+      case 'cat_add':
+        cats.amount += cats.perClick;
+        break;
+
+      case 'cat_set_persecond':
         cats.perSecond = action.payload;
-      });
+        break;
 
-    case 'building_buy':
-      return produce(state, (draftState) => {
-        const cats = draftState.cats;
-        const building = draftState.buildings[action.payload];
-        if (cats.amount >= building.price) {
-          const calcCats = Math.round((cats.amount - building.price) * 100) / 100;
-          cats.amount = calcCats;
-          building.amount += 1;
-          building.price = building.priceDef * Math.pow(PRICE_MULTIPLIER, building.amount);
-          building.perSecond = building.perSecondDef * building.bonus * building.amount;
+      case 'building_buy':
+        const buildToBuy = buildings[action.payload];
+        if (cats.amount >= buildToBuy.price) {
+          cats.amount = numberRounder(cats.amount - buildToBuy.price);
+          buildToBuy.amount += 1;
+          buildToBuy.price = buildToBuy.priceDef * Math.pow(PRICE_MULTIPLIER, buildToBuy.amount);
+          buildToBuy.perSecond = buildToBuy.perSecondDef * buildToBuy.bonus * buildToBuy.amount;
         }
-      });
+        break;
 
-    case 'building_unlock':
-      return produce(state, (draftState) => {
-        const building = draftState.buildings[action.payload];
-        building.unlocked = true;
-      });
+      case 'building_unlock':
+        const buildingUnlock = buildings[action.payload];
+        buildingUnlock.unlocked = true;
+        break;
 
-    case 'building_discover':
-      return produce(state, (draftState) => {
-        const building = draftState.buildings[action.payload];
-        building.discovered = true;
-      });
+      case 'building_discover':
+        const buildingDiscover = buildings[action.payload];
+        buildingDiscover.discovered = true;
+        break;
 
-    case 'building_add_variable':
-      return produce(state, (draftState) => {
-        const building = draftState.buildings[action.payload];
-        building.amount = 0;
-        building.price = building.priceDef;
-        building.perSecond = 0;
-        building.bonus = 1;
-        action.payload === 0 ? (building.unlocked = true) : (building.unlocked = false);
-        building.discovered = false;
-      });
+      case 'building_add_variable':
+        const buildVariable = draftState.buildings[action.payload];
+        buildVariable.amount = 0;
+        buildVariable.price = buildVariable.priceDef;
+        buildVariable.perSecond = 0;
+        buildVariable.bonus = 1;
+        action.payload === 0 ? (buildVariable.unlocked = true) : (buildVariable.unlocked = false);
+        buildVariable.discovered = false;
+        break;
 
-    default:
-      console.log('no type');
-      return state;
-  }
+      default:
+        console.log('no type');
+        break;
+    }
+  });
 };
