@@ -11,11 +11,14 @@ type BuildingProps = {
 
 export const CreateBuilding: React.FC<BuildingProps> = ({ building, index }) => {
   const { catGame, dispatchCatGame } = useCatGame();
+  const { unlocked, icon, discovered, name, price, amount } = building;
+  const { cats, buildings } = catGame;
+
   const isMissingVariable = useRef(true);
 
   useEffect(() => {
     const addVariable = async () => {
-      building.amount ??
+      amount ??
         (await dispatchCatGame({
           type: 'building_add_variable',
           payload: index,
@@ -35,46 +38,42 @@ export const CreateBuilding: React.FC<BuildingProps> = ({ building, index }) => 
   useUpdateEffect(() => {
     if (isMissingVariable.current) return;
 
-    if (!building.discovered)
-      if (catGame.cats.amount >= building.price)
+    if (!discovered)
+      if (cats.amount >= price)
         dispatchCatGame({
           type: 'building_discover',
           payload: index,
         });
-  }, [catGame.cats]);
+  }, [cats]);
 
   useUpdateEffect(() => {
     if (isMissingVariable.current) return;
 
-    if (!building.unlocked)
-      if (catGame.buildings[index - 1].amount > 0)
+    if (!unlocked)
+      if (buildings[index - 1].amount > 0)
         dispatchCatGame({
           type: 'building_unlock',
           payload: index,
         });
-  }, [catGame.buildings]);
+  }, [buildings]);
 
   return (
     <>
-      {building.unlocked && (
+      {unlocked && (
         <button className="h-24 w-full flex items-center text-2xl " onClick={handleClick}>
           <img
-            src={`${PATH_BUILDINGS}${building.icon}.webp`}
-            className={`w-24 aspect-square ${building.discovered ? '' : 'brightness-0'} `}
+            src={`${PATH_BUILDINGS}${icon}.webp`}
+            className={`w-24 aspect-square ${discovered ? '' : 'brightness-0'} `}
           />
 
           <div className="flex-1 flex flex-col m-auto ml-4 items-start">
-            <p className="text-4xl text-white">{building.discovered ? building.name : '???'}</p>
-            <p
-              className={`${
-                catGame.cats.amount >= building.price ? 'text-green-600' : 'text-red-600'
-              }`}
-            >
-              {numberConverter(building.price)}
+            <p className="text-4xl text-white">{discovered ? name : '???'}</p>
+            <p className={`${catGame.cats.amount >= price ? 'text-green-600' : 'text-red-600'}`}>
+              {numberConverter(price)}
             </p>
           </div>
           <div className="flex items-end mr-2 text-7xl">
-            <p className="">{building.amount}</p>
+            <p className="">{amount}</p>
           </div>
         </button>
       )}
